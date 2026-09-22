@@ -77,21 +77,8 @@
 
 #### 3\. ER-диаграмма
 
+![Uploading image.png…]()
 
-
-erDiagram
-
-&#x20;   USER ||--o{ USER\_GOAL
-
-&#x20;   USER ||--o{ USER\_TASK
-
-&#x20;   GOAL ||--o{ USER\_GOAL
-
-&#x20;   TASK ||--o{ USER\_TASK
-
-&#x20;   STATUS ||--o{ GOAL
-
-&#x20;   STATUS ||--o{ TASK
 
 
 
