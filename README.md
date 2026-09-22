@@ -77,7 +77,7 @@
 
 #### 3\. ER-диаграмма
 
-![Uploading image.png…]()
+<img width="2560" height="1776" alt="image" src="https://github.com/user-attachments/assets/99a1d72d-0083-447a-a990-ad17cdb0e388" />
 
 
 
