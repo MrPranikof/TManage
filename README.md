@@ -83,7 +83,7 @@
 
 ### 5\. Диаграмма последовательности.
 
-<img width="2560" height="1400" alt="image" src="https://github.com/user-attachments/assets/f53914cf-3322-4d65-b592-d18dbd972ce1" />
+<img width="2560" height="1920" alt="image" src="https://github.com/user-attachments/assets/9126c351-99c1-4ecd-9e7d-45b7f35f4f01" />
 
 ### 6\. Общая блок-схема.
 
