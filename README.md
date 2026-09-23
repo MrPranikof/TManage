@@ -62,7 +62,62 @@
 
 ### 3\. ER-диаграмма
 
-<img width="2560" height="1776" alt="image" src="https://github.com/user-attachments/assets/99a1d72d-0083-447a-a990-ad17cdb0e388" />
+```mermaid
+erDiagram
+    STATUS ||--o{ TASK : " "
+    TASK ||--o{ USER_TASK : " "
+    USERS ||--o{ USER_TASK : " "
+    STATUS ||--o{ GOAL : " "
+    GOAL ||--o{ USER_GOAL : " "
+    USER_GOAL }o--|| USERS : " "
+    GOAL ||--o{ TASK : ""
+
+  STATUS {
+      INT status_id PK
+      varchar(100) name
+  }
+  
+  USERS {
+      INT user_id PK
+      varchar(100) login
+      varchar(100) last_name
+      TEXT password_hash
+      ENUM user_role
+  }
+  
+  GOAL {
+      INT goal_id PK
+      varchar(100) name
+      TEXT description
+      TIMESTAMP created_date
+      TIMESTAMP start_date
+      TIMESTAMP end_date
+      INT status_id FK
+  }
+  
+  TASK {
+      INT task_id PK
+      varchar(100) name
+      TEXT description
+      TIMESTAMP created_date
+      TIMESTAMP start_date
+      TIMESTAMP end_date
+      INT goal_id FK
+      INT status_id FK
+  }
+  
+  USER_TASK {
+      INT user_id PK
+      INT task_id PK
+      ENUM task_role
+  }
+  
+  USER_GOAL {
+      INT user_id PK
+      INT goal_id PK
+      ENUM goal_role
+  }
+```
 
 ### 4\. Сценарий использования
 
@@ -84,6 +139,7 @@
 ### 5\. Диаграмма последовательности.
 
 <img width="2560" height="1920" alt="image" src="https://github.com/user-attachments/assets/9126c351-99c1-4ecd-9e7d-45b7f35f4f01" />
+
 
 ### 6\. Общая блок-схема.
 
