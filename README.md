@@ -133,7 +133,7 @@ erDiagram
       TIMESTAMP completed_at
       INT author_id FK
       INT goal_id FK
-      ENUM status_id
+      ENUM status
   }
   
   USER_TASK {
