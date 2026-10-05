@@ -3,3 +3,6 @@ uvicorn
 pydantic
 PyJWT
 argon2-cffi
+psycopg[binary]
+python-dotenv
+sqlalchemy
