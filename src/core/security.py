@@ -1,14 +1,9 @@
-"""
-Функции хэширования пароля и создания access-токенов
-
-Оганнисян Ваган
-05.10.2026
-"""
-
 from core.config import SECRET_JWT, ALGORITHM, ACCESS_TOKEN_MINUTES
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError, VerificationError, InvalidHashError
 import jwt
+import secrets
+import hashlib
 from datetime import datetime, timedelta, timezone
 
 ph = PasswordHasher()
@@ -51,3 +46,10 @@ def decode_access_token(token: str) -> int | None:
     except ValueError:
         # Если sub вдруг не число, int() кинет valueError
         return None
+
+def create_refresh_token() -> str:
+    return secrets.token_urlsafe(32)
+
+def hash_token(token: str) -> str:
+    # В базе хранится только хеш refresh-токена. Токен случайный и длинный, поэтому хватает sha256
+    return hashlib.sha256(token.encode()).hexdigest()

@@ -1,9 +1,3 @@
-"""
-Конфиг
-
-Оганнисян Ваган
-05.10.2026
-"""
 import os
 from dotenv import load_dotenv
 from sqlalchemy import URL
@@ -12,6 +6,7 @@ load_dotenv()
 
 SECRET_JWT = os.getenv('SECRET_JWT')
 ACCESS_TOKEN_MINUTES = int(os.getenv('ACCESS_TOKEN_MINUTES', 15))
+REFRESH_TOKEN_DAYS = int(os.getenv('REFRESH_TOKEN_DAYS', 30))
 ALGORITHM = os.getenv('ALGORITHM')
 DB_HOST = os.getenv('DB_HOST')
 DB_PORT = os.getenv('DB_PORT')

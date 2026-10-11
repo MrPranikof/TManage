@@ -1,10 +1,3 @@
-"""
-Доступ к БД
-
-Оганнисян Ваган
-05.10.2026
-"""
-
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from core.config import DATABASE_URL
