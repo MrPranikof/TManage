@@ -4,49 +4,26 @@
 Оганнисян Ваган
 05.10.2026
 """
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
 
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from auth import register_user, login_user, get_current_user
+from core.database import get_db
+from core.security import create_access_token
+from models import User
+from schemas import RegisterInput, LoginInput, UserOutput, TokenOutput
 
-#@app.get("/items/{item_id}")
-#def read_item(item_id: int):
-#    return {"item_id": item_id, "status": f"Товар {item_id} успешно найден"}
-app = FastAPI(title="TManage API", version="1.0.0")
+router = APIRouter(prefix="/v1/auth", tags=["auth"])
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello, world!"}
+@router.post("/register", response_model=UserOutput, status_code=201, summary="Регистрация")
+def register(data: RegisterInput, db: Session = Depends(get_db)):
+    return register_user(db, data.login, data.first_name, data.last_name, data.password)
 
+@router.post("/login", response_model=TokenOutput, summary="Авторизация")
+def login(data: LoginInput, db: Session = Depends(get_db)):
+    user = login_user(db, data.login, data.password)
+    return {"access_token": create_access_token(user.user_id)}
 
-class UserInput(BaseModel):
-    email: EmailStr
-    username: str = Field(..., min_length=3)
-    password: str = Field(..., min_length=8)
-
-class UserOutput(BaseModel):
-    id: int
-    email: EmailStr
-    username: str
-    is_active: bool
-
-@app.post("/v1/auth/register", response_model=UserOutput, summary="Регистрация")
-def register(data: UserInput):
-    pass
-
-
-@app.post("/v1/auth/login", response_model=UserOutput, summary="Регистрация")
-def login(data: UserInput):
-    pass
-
-@app.get("/v1/users")
-def get_users(user_id: int):
-    return {"user_id": user_id}
-
-@app.get("/v1/goals")
-def get_goals(goal_id: int):
-    return {"goal_id": goal_id}
-
-@app.get("/v1/tasks")
-def get_tasks(task_id: int):
-    return {"task_id": task_id}
+@router.get("/me", response_model=UserOutput, summary="Текущий пользователь")
+def me(user: User = Depends(get_current_user)):
+    return user

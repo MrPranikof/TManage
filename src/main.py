@@ -1,37 +1,16 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
+from fastapi import FastAPI
+from routers.auth import router as auth_router
 
 
 #@app.get("/items/{item_id}")
 #def read_item(item_id: int):
 #    return {"item_id": item_id, "status": f"Товар {item_id} успешно найден"}
 app = FastAPI(title="TManage API", version="1.0.0")
+app.include_router(auth_router)
 
 @app.get("/")
 def read_root():
     return {"message": "Hello, world!"}
-
-
-class UserInput(BaseModel):
-    email: EmailStr
-    username: str = Field(..., min_length=3)
-    password: str = Field(..., min_length=8)
-
-class UserOutput(BaseModel):
-    id: int
-    email: EmailStr
-    username: str
-    is_active: bool
-
-@app.post("/v1/auth/register", response_model=UserOutput, summary="Регистрация")
-def register(data: UserInput):
-    pass
-
-
-@app.post("/v1/auth/login", response_model=UserOutput, summary="Регистрация")
-def login(data: UserInput):
-    pass
 
 @app.get("/v1/users")
 def get_users(user_id: int):
